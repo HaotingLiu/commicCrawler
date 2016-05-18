@@ -9,20 +9,14 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-public class mangaCrawler {
-    public static void main(String[] args){
-        boolean skip=false;
+class Crawler {
+    public void crawl(String url){
         for(int i=1016;i<9999;++i){
             for(int j=0;j<50000;++j){
-/*                if(skip) {
-                    skip=false;
-                    break;
-                }*/
                 for(int k=0;k<9999;++k){
-                    String url="http://hicomic.bbhou.com/comic/1/"+String.valueOf(i)+"/"+String.valueOf(j)+"/"+String.valueOf(k)+".jpg";
+                   // String url="http://hicomic.bbhou.com/comic/1/"+String.valueOf(i)+"/"+String.valueOf(j)+"/"+String.valueOf(k)+".jpg";
                     byte[] btImg = getImageFromNetByUrl(url);
                     if(btImg==null) {
-                    //    skip=true;
                         break;
                     }
                     else{
@@ -34,7 +28,7 @@ public class mangaCrawler {
         }
     }
 
-    public static void writeImageToDisk(byte[] img, String folderName,String fileName){
+    public void writeImageToDisk(byte[] img, String folderName,String fileName){
         try {
             File file = new File("C:\\manga"+"\\"+folderName+"\\" + fileName);
             FileOutputStream fops = new FileOutputStream(file);
@@ -51,7 +45,7 @@ public class mangaCrawler {
      * @param strUrl 网络连接地址
      * @return
      */
-    public static byte[] getImageFromNetByUrl(String strUrl){
+    public byte[] getImageFromNetByUrl(String strUrl){
         try {
             URL url = new URL(strUrl);
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -71,7 +65,7 @@ public class mangaCrawler {
      * @return
      * @throws Exception
      */
-    public static byte[] readInputStream(InputStream inStream) throws Exception{
+    public byte[] readInputStream(InputStream inStream) throws Exception{
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int len = 0;
